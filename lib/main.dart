@@ -1,8 +1,19 @@
+import 'dart:io';
+
+import 'package:desktop_window/desktop_window.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
 import 'dart:async';
 import 'dart:math' as math;
 
-void main() {
+import 'widgets/widgets.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  if (!kIsWeb && (Platform.isMacOS || Platform.isLinux || Platform.isWindows)) {
+    await DesktopWindow.setMinWindowSize(const Size(600, 800));
+  }
   runApp(MyApp());
 }
 
@@ -59,10 +70,7 @@ class Shell extends StatelessWidget {
           Expanded(
             child: Row(
               children: [
-                Container(
-                  height: double.infinity,
-                  width: 280.0,
-                  color: Colors.green,
+                SideMenu(),              
                 ),
                 //PlaylistScreen
               ],
